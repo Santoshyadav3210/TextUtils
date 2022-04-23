@@ -2,21 +2,41 @@ import React, { useState } from 'react'
 
 export default function Textform(props) {
 
-    const [text, setText] = useState('Enter Text Here');
+    const [text, setText] = useState('');
 
     const upperCase = () => {
-        let newtext = text.toUpperCase();
-        setText(newtext);
-        props.showAlert("Converted to Uppercase", "Success")
+        if(text.length!==0){
+            let newtext = text.toUpperCase();
+            setText(newtext);
+            props.showAlert("Converted to Uppercase", "Success")
+
+        }
+        else{
+            props.showAlert("Please Enter Text", "Failed")
+        }
+      
     }
     const lowerCase = () => {
-        let newtext = text.toLowerCase();
+        if(text.length!==0){
+            let newtext = text.toLowerCase();
         setText(newtext);
         props.showAlert("Converted to LowerCase", "Success")
+
+        }
+        else{
+            props.showAlert("Please Enter Text", "Failed")
+        }
+        
     }
     const clearText = () => {
-        setText("");
-        props.showAlert("Text Cleared", "Success")
+        if (text.length!==0){
+            setText("");
+            props.showAlert("Text Cleared", "Success")
+        }
+        else{
+            props.showAlert("Please Enter Text", "Failed")
+        }
+       
     }
     const UpperOnchnage = (event) => {
         setText(event.target.value)
@@ -27,7 +47,7 @@ export default function Textform(props) {
                 <div className='container'>
                     <h1>{props.heading} Below</h1>
                     <div className="mb-3">
-                        <textarea className="form-control" value={text} onChange={UpperOnchnage} style={{ backgroundColor: props.mode === 'dark' ? 'grey' : 'white' }} id="mybox" rows="8"></textarea>
+                        <textarea placeholder="Enter Text Here" className="form-control" value={text} onChange={UpperOnchnage} style={{ backgroundColor: props.mode === 'dark' ? 'grey' : 'white' }} id="mybox" rows="8"></textarea>
 
                         <button className='btn btn-primary mx-2 my-5' onClick={upperCase}>Convert to Uppercase</button>
                         <button className='btn btn-primary mx-2 my-5' onClick={lowerCase}>Convert to Lowercase</button>
